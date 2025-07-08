@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Pluginy Minecraft do Google Colab</title>
   <style>
     body {
@@ -15,9 +15,25 @@
       margin-bottom: 15px;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .plugin h3 {
-      margin: 0 0 10px;
+    .plugin-info {
+      display: flex;
+      align-items: center;
+    }
+    .plugin-info img {
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+      border-radius: 5px;
+      object-fit: contain;
+      background: white;
+      border: 1px solid #ccc;
+    }
+    .plugin-info h3 {
+      margin: 0;
     }
     input[type="text"] {
       width: 100%;
@@ -54,17 +70,26 @@
   <h1>Wgraj plugin do Google Colab</h1>
 
   <div class="plugin" data-name="EssentialsX" data-url="https://twojastrona.pl/plugins/EssentialsX.jar">
-    <h3>EssentialsX</h3>
+    <div class="plugin-info">
+      <img src="https://cdn.jsdelivr.net/gh/EssentialsX/Essentials/assets/essentials_logo.png" alt="EssentialsX Logo" />
+      <h3>EssentialsX</h3>
+    </div>
     <button onclick="showPathInput(this)">Wgraj</button>
   </div>
 
   <div class="plugin" data-name="LuckPerms" data-url="https://twojastrona.pl/plugins/LuckPerms.jar">
-    <h3>LuckPerms</h3>
+    <div class="plugin-info">
+      <img src="https://luckperms.net/img/logo.png" alt="LuckPerms Logo" />
+      <h3>LuckPerms</h3>
+    </div>
     <button onclick="showPathInput(this)">Wgraj</button>
   </div>
 
   <div class="plugin" data-name="ScreamingBedWars" data-url="https://twojastrona.pl/plugins/ScreamingBedWars.jar">
-    <h3>ScreamingBedWars</h3>
+    <div class="plugin-info">
+      <img src="https://media.forgecdn.net/avatars/372/852/637629914098571851.png" alt="ScreamingBedWars Logo" />
+      <h3>ScreamingBedWars</h3>
+    </div>
     <button onclick="showPathInput(this)">Wgraj</button>
   </div>
 
