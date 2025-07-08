@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Pluginy Minecraft do Google Colab</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f2f2f2;
+    }
+    .plugin {
+      background: white;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .plugin h3 {
+      margin: 0 0 10px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 15px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .code-block {
+      background: #eee;
+      padding: 10px;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      padding: 5px 10px;
+      background: #2196F3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Wgraj plugin do Google Colab</h1>
+
+  <div class="plugin" data-name="EssentialsX" data-url="https://twojastrona.pl/plugins/EssentialsX.jar">
+    <h3>EssentialsX</h3>
+    <button onclick="showPathInput(this)">Wgraj</button>
+  </div>
+
+  <div class="plugin" data-name="LuckPerms" data-url="https://twojastrona.pl/plugins/LuckPerms.jar">
+    <h3>LuckPerms</h3>
+    <button onclick="showPathInput(this)">Wgraj</button>
+  </div>
+
+  <div class="plugin" data-name="ScreamingBedWars" data-url="https://twojastrona.pl/plugins/ScreamingBedWars.jar">
+    <h3>ScreamingBedWars</h3>
+    <button onclick="showPathInput(this)">Wgraj</button>
+  </div>
+
+  <script>
+    function showPathInput(button) {
+      const container = button.parentElement;
+      const name = container.dataset.name;
+      const url = container.dataset.url;
+
+      const existing = container.querySelector('.path-input');
+      if (existing) existing.remove();
+
+      const input = document.createElement('div');
+      input.className = 'path-input';
+      input.innerHTML = `
+        <input type="text" placeholder="Wpisz ścieżkę folderu (np. /content/drive/MyDrive/MinecraftServer/plugins/)" />
+        <button onclick="generateCode(this, '${url}')">Generuj kod</button>
+        <div class="code-block" style="display:none;"></div>
+      `;
+      container.appendChild(input);
+    }
+
+    function generateCode(button, fileUrl) {
+      const container = button.parentElement;
+      const path = container.querySelector('input').value.trim();
+      const codeBlock = container.querySelector('.code-block');
+
+      if (!path.endsWith('/')) {
+        alert('Ścieżka musi kończyć się znakiem "/"');
+        return;
+      }
+
+      const filename = fileUrl.split('/').pop();
+      const command = `!wget ${fileUrl} -P ${path}`;
+
+      codeBlock.style.display = 'block';
+      codeBlock.innerHTML = `
+        <button class="copy-btn" onclick="copyToClipboard(this)">Kopiuj</button>
+        <code>${command}</code>
+      `;
+    }
+
+    function copyToClipboard(btn) {
+      const code = btn.nextElementSibling.textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = "Skopiowano!";
+        setTimeout(() => btn.textContent = "Kopiuj", 2000);
+      });
+    }
+  </script>
+</body>
+</html>
